@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <title>SEO & Digital Authority Strategy – Amaranta Hotel</title>
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      margin: 0;
+      padding: 40px;
+      background: #ffffff;
+      color: #333333;
+      line-height: 1.6;
+    }
+    h1, h2, h3 {
+      color: #1F3D36;
+      margin-bottom: 10px;
+    }
+    h1 {
+      border-bottom: 3px solid #C8A45D;
+      padding-bottom: 10px;
+    }
+    h2 {
+      margin-top: 40px;
+    }
+    h3 {
+      margin-top: 25px;
+      color: #2E5E52;
+    }
+    ul {
+      margin-left: 20px;
+    }
+    li {
+      margin-bottom: 8px;
+    }
+    .section {
+      margin-bottom: 50px;
+    }
+    .highlight {
+      background: #F7F4EE;
+      border-left: 4px solid #C8A45D;
+      padding: 15px;
+      margin-top: 15px;
+    }
+    .code-block {
+      background: #1F3D36;
+      color: #ffffff;
+      padding: 20px;
+      overflow-x: auto;
+      margin-top: 15px;
+      font-size: 14px;
+    }
+    .code-block code {
+      color: #ffffff;
+    }
+    .kpi-box {
+      background: #1F3D36;
+      color: #ffffff;
+      padding: 20px;
+      margin-top: 20px;
+    }
+    .kpi-box h3 {
+      color: #C8A45D;
+    }
+  </style>
+</head>
+<body>
+
+<h1>SEO & Digital Authority Strategy – Amaranta Hotel</h1>
+
+<!-- ===================== -->
+<!-- 1. CRAWL & AI ACCESS -->
+<!-- ===================== -->
+<div class="section">
+  <h2>1. Penghapusan Blok Crawl untuk Search Engine & AI</h2>
+
+  <ul>
+    <li>Audit robots.txt, meta robots, dan server header.</li>
+    <li>Memastikan Googlebot dan AI crawler dapat mengakses halaman utama hotel.</li>
+    <li>Menjaga keamanan tanpa menghambat indexing.</li>
+  </ul>
+
+  <h3>Contoh robots.txt (Asumsi Saat Ini)</h3>
+  <div class="code-block">
+<pre><code>User-agent: *
+Disallow: /wp-admin/
+Disallow: /id/
+Allow: /wp-admin/admin-ajax.php
+
+Sitemap: https://amarantaprambanan.com/sitemap.xml
+</code></pre>
+  </div>
+
+  <div class="highlight">
+    Konfigurasi ini memastikan halaman utama hotel tetap terbuka untuk Google dan AI,
+    sementara area administratif tidak ikut terindeks.
+  </div>
+</div>
+
+<!-- ===================== -->
+<!-- 2. HOTEL SCHEMA -->
+<!-- ===================== -->
+<div class="section">
+  <h2>2. Implementasi Hotel Schema Secara Lengkap</h2>
+
+  <ul>
+    <li>Structured data untuk memperjelas identitas Amaranta sebagai hotel bintang lima.</li>
+    <li>Digunakan oleh Google Search, Google Maps, dan AI recommendation engine.</li>
+    <li>Meningkatkan trust dan relevansi hasil pencarian.</li>
+  </ul>
+
+  <h3>Contoh Hotel Schema – Amaranta Hotel Bintang 5 Jogja</h3>
+  <div class="code-block">
+<pre><code>{
+  "@context": "https://schema.org",
+  "@type": "Hotel",
+  "@id": "https://amarantaprambanan.com/#hotel",
+  "name": "Amaranta Prambanan Yogyakarta",
+  "description": "Hotel bintang lima di Yogyakarta dengan pengalaman luxury resort dan lokasi strategis.",
+  "url": "https://amarantaprambanan.com",
+  "image": "https://amarantaprambanan.com/path/to/hotel-image.jpg",
+  "telephone": "+62-274-XXXXXXX",
+  "priceRange": "Rp1.500.000 - Rp5.000.000",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Jl. Raya Prambanan",
+    "addressLocality": "Sleman",
+    "addressRegion": "Daerah Istimewa Yogyakarta",
+    "postalCode": "55571",
+    "addressCountry": "ID"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": -7.7520,
+    "longitude": 110.4915
+  },
+  "starRating": {
+    "@type": "Rating",
+    "ratingValue": "5"
+  },
+  "amenityFeature": [
+    {
+      "@type": "LocationFeatureSpecification",
+      "name": "Free Wi-Fi",
+      "value": true
+    },
+    {
+      "@type": "LocationFeatureSpecification",
+      "name": "Infinity Pool",
+      "value": true
+    },
+    {
+      "@type": "LocationFeatureSpecification",
+      "name": "Spa & Wellness",
+      "value": true
+    }
+  ],
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.8",
+    "reviewCount": "125"
+  },
+  "checkinTime": "14:00",
+  "checkoutTime": "12:00"
+}</code></pre>
+  </div>
+</div>
+
+<!-- ===================== -->
+<!-- 3. PERFORMANCE -->
+<!-- ===================== -->
+<div class="section">
+  <h2>3. Perbaikan Core Web Vitals</h2>
+  <ul>
+    <li>Optimasi LCP, CLS, dan TTFB.</li>
+    <li>Fokus pada hero image, galeri kamar, dan landing page utama.</li>
+    <li>Optimasi server, caching, dan CDN.</li>
+  </ul>
+</div>
+
+<!-- ===================== -->
+<!-- 4. HREFLANG & ERRORS -->
+<!-- ===================== -->
+<div class="section">
+  <h2>4. Hreflang & Critical Errors</h2>
+  <ul>
+    <li>Audit hreflang untuk market domestik dan internasional.</li>
+    <li>Perbaikan duplicate content dan canonical.</li>
+    <li>Pembersihan error SEMrush yang berdampak ke ranking.</li>
+  </ul>
+</div>
+
+<!-- ===================== -->
+<!-- KPI -->
+<!-- ===================== -->
+<div class="section">
+  <h2>Target, KPI & Reporting</h2>
+  <div class="kpi-box">
+    <h3>Google Local Pack</h3>
+    <ul>
+      <li>Target Top 3 untuk keyword hotel bintang 5 Jogja.</li>
+    </ul>
+
+    <h3>Organic Growth</h3>
+    <ul>
+      <li>Pertumbuhan organic traffic.</li>
+      <li>Keyword ranking Top 10 & Top 3.</li>
+    </ul>
+
+    <h3>Google Business Profile</h3>
+    <ul>
+      <li>Views, calls, direction, website clicks.</li>
+    </ul>
+
+    <h3>Organic Booking / Inquiry</h3>
+    <ul>
+      <li>Tracking kontribusi SEO terhadap booking (jika memungkinkan).</li>
+    </ul>
+  </div>
+</div>
+
+</body>
+</html>
