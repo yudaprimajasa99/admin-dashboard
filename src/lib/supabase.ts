@@ -191,9 +191,9 @@ export function formatPrice(pricing: ItemPricing): string {
   
   // Simple price
   if ('price' in pricing && typeof pricing.price === 'number') {
-    const formatted = `Rp ${pricing.price.toLocaleString('id-ID')}`;
+    const formatted = `Rp ${(pricing.price as number).toLocaleString('id-ID')}`;
     if ('compare_price' in pricing && pricing.compare_price) {
-      return `${formatted} (was Rp ${pricing.compare_price.toLocaleString('id-ID')})`;
+      return `${formatted} (was Rp ${(pricing.compare_price as number).toLocaleString('id-ID')})`;
     }
     if ('min_pax' in pricing) {
       return `${formatted}/pax (min ${pricing.min_pax})`;
@@ -203,17 +203,17 @@ export function formatPrice(pricing: ItemPricing): string {
   
   // Range price (service)
   if ('min' in pricing && 'max' in pricing) {
-    return `Rp ${pricing.min.toLocaleString('id-ID')} - Rp ${pricing.max.toLocaleString('id-ID')}`;
+    return `Rp ${(pricing.min as number).toLocaleString('id-ID')} - Rp ${(pricing.max as number).toLocaleString('id-ID')}`;
   }
   
   // Daily/weekly (vehicle)
   if ('daily' in pricing) {
-    return `Rp ${pricing.daily.toLocaleString('id-ID')}/hari`;
+    return `Rp ${(pricing.daily as number).toLocaleString('id-ID')}/hari`;
   }
   
   // Weekday/weekend (room)
   if ('weekday' in pricing) {
-    return `Rp ${pricing.weekday.toLocaleString('id-ID')}/malam`;
+    return `Rp ${(pricing.weekday as number).toLocaleString('id-ID')}/malam`;
   }
   
   return '-';
