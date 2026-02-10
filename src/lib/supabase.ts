@@ -2,9 +2,16 @@ import { createClient } from '@supabase/supabase-js';
 
 // Environment variables - set in .env.local
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_SERVICE_KEY!;
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+const supabaseServiceKey = process.env.NEXT_PUBLIC_SUPABASE_SERVICE_KEY!;
 
-export const supabase = createClient(supabaseUrl, supabaseKey);
+// Main client with service key (for data operations - bypasses RLS)
+// Used by all existing pages for CRUD operations
+export const supabase = createClient(supabaseUrl, supabaseServiceKey);
+
+// Auth client with anon key (for authentication)
+// Anon key is required for client-side auth to work properly
+export const supabaseAuth = createClient(supabaseUrl, supabaseAnonKey);
 
 // ==========================================
 // TYPES - Updated for SaaS Multi-tenant

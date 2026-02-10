@@ -42,11 +42,15 @@ const FORMALITY_OPTIONS = [
 ];
 
 const GREETING_OPTIONS = [
+  { value: '__none__', label: '(Tanpa Sapaan) - Personal Tone' },
   { value: 'Kakak', label: 'Kakak - Sopan & Friendly' },
-  { value: 'Anda', label: 'Anda - Formal' },
+  { value: 'Anda', label: 'Anda - Netral Profesional' },
   { value: 'Kamu', label: 'Kamu - Casual' },
+  { value: 'Pak/Bu', label: 'Pak/Bu - Formal tapi Luwes' },
   { value: 'Bapak/Ibu', label: 'Bapak/Ibu - Sangat Formal' },
+  { value: 'Mas/Mbak', label: 'Mas/Mbak - Jawa Friendly' },
   { value: 'Bro/Sis', label: 'Bro/Sis - Gaul' },
+  { value: '__custom__', label: '✏️ Custom (ketik sendiri)...' },
 ];
 
 const EMOJI_OPTIONS = [
@@ -111,10 +115,12 @@ export default function EditPersonaPage() {
   const [personality, setPersonality] = useState({
     tone: 'friendly',
     formality: 'semi-formal',
-    greeting: 'Kakak',
+    greeting: '__none__',  // Default: tanpa sapaan
     emoji_usage: 'moderate',
     humor: 'subtle',
   });
+  const [customGreeting, setCustomGreeting] = useState('');
+  const [isCustomGreeting, setIsCustomGreeting] = useState(false);
 
   // Arrays state
   const [capabilities, setCapabilities] = useState<string[]>(DEFAULT_CAPABILITIES);
@@ -158,13 +164,27 @@ export default function EditPersonaPage() {
 
     // Load personality
     if (data.personality) {
+      const loadedGreeting = data.personality.greeting || '';
+      const predefinedValues = GREETING_OPTIONS.map(o => o.value).filter(v => v !== '__custom__');
+      
+      // Check if it's a custom greeting (not in predefined list and not empty)
+      const isCustom = loadedGreeting && !predefinedValues.includes(loadedGreeting) && loadedGreeting !== '__none__';
+      
+      // Map empty string to '__none__' for Select component
+      const selectValue = !loadedGreeting ? '__none__' : (isCustom ? '__custom__' : loadedGreeting);
+      
       setPersonality({
         tone: data.personality.tone || 'friendly',
         formality: data.personality.formality || 'semi-formal',
-        greeting: data.personality.greeting || 'Kakak',
+        greeting: selectValue,
         emoji_usage: data.personality.emoji_usage || 'moderate',
         humor: data.personality.humor || 'subtle',
       });
+      
+      if (isCustom) {
+        setIsCustomGreeting(true);
+        setCustomGreeting(loadedGreeting);
+      }
     }
 
     // Load capabilities
@@ -203,9 +223,17 @@ export default function EditPersonaPage() {
     e.preventDefault();
     setSaving(true);
 
+    // Resolve actual greeting value
+    let actualGreeting = isCustomGreeting ? customGreeting : personality.greeting;
+    // Convert __none__ to empty string (no greeting)
+    if (actualGreeting === '__none__') actualGreeting = '';
+    
     const payload = {
       ...form,
-      personality,
+      personality: {
+        ...personality,
+        greeting: actualGreeting,  // Use resolved greeting
+      },
       capabilities,
       signature_phrases: signaturePhrases,
     };
@@ -233,18 +261,32 @@ export default function EditPersonaPage() {
 
   // Generate prompt preview
   function generatePromptPreview() {
-    const greeting = personality.greeting;
+    const actualGreeting = isCustomGreeting ? customGreeting : personality.greeting;
+    const hasNoGreeting = !actualGreeting || actualGreeting === '__none__';
     const tone = TONE_OPTIONS.find(t => t.value === personality.tone)?.label || personality.tone;
     const emoji = personality.emoji_usage !== 'none' ? '😊' : '';
     
-    return `Contoh respons dengan pengaturan ini:
+    if (hasNoGreeting) {
+      // Tanpa sapaan - personal tone
+      return `Contoh respons (tanpa sapaan eksplisit):
 
-"Halo ${greeting}! ${emoji} Ada yang bisa saya bantu hari ini?"
+"Halo! ${emoji} Ada yang bisa kami bantu hari ini?"
 
-"Terima kasih sudah menghubungi kami, ${greeting}. ${emoji}"
+"Terima kasih sudah menghubungi kami! ${emoji}"
 
 Tone: ${tone}
-Sapaan: ${greeting}
+Sapaan: (tidak ada - personal tone)
+Emoji: ${personality.emoji_usage}`;
+    }
+    
+    return `Contoh respons dengan pengaturan ini:
+
+"Halo ${actualGreeting}! ${emoji} Ada yang bisa saya bantu hari ini?"
+
+"Terima kasih sudah menghubungi kami, ${actualGreeting}. ${emoji}"
+
+Tone: ${tone}
+Sapaan: ${actualGreeting}
 Emoji: ${personality.emoji_usage}`;
   }
 
@@ -410,22 +452,45 @@ Emoji: ${personality.emoji_usage}`;
 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <Label>Sapaan Customer *</Label>
+                    <Label>Sapaan Customer</Label>
                     <Select
-                      value={personality.greeting}
-                      onValueChange={(v) => setPersonality({ ...personality, greeting: v })}
+                      value={isCustomGreeting ? '__custom__' : personality.greeting}
+                      onValueChange={(v) => {
+                        if (v === '__custom__') {
+                          setIsCustomGreeting(true);
+                          setPersonality({ ...personality, greeting: '__custom__' });
+                        } else {
+                          setIsCustomGreeting(false);
+                          setCustomGreeting('');
+                          setPersonality({ ...personality, greeting: v });
+                        }
+                      }}
                     >
-                      <SelectTrigger><SelectValue /></SelectTrigger>
+                      <SelectTrigger><SelectValue placeholder="Pilih sapaan..." /></SelectTrigger>
                       <SelectContent>
                         {GREETING_OPTIONS.map((opt) => (
-                          <SelectItem key={opt.value} value={opt.value}>
+                          <SelectItem key={opt.value || 'none'} value={opt.value}>
                             {opt.label}
                           </SelectItem>
                         ))}
                       </SelectContent>
                     </Select>
+                    
+                    {/* Custom greeting input */}
+                    {isCustomGreeting && (
+                      <Input
+                        value={customGreeting}
+                        onChange={(e) => setCustomGreeting(e.target.value)}
+                        placeholder="Ketik sapaan custom... (misal: Chive, Boss, Chief)"
+                        className="mt-2"
+                      />
+                    )}
+                    
                     <p className="text-xs text-gray-500 mt-1">
-                      Contoh: "Halo {personality.greeting}! Ada yang bisa dibantu?"
+                      {personality.greeting === '__none__' && !isCustomGreeting
+                        ? 'Tanpa sapaan - fokus ke personal tone yang hangat'
+                        : `Contoh: "Halo ${isCustomGreeting ? customGreeting || '...' : personality.greeting}! Ada yang bisa dibantu?"`
+                      }
                     </p>
                   </div>
 
