@@ -43,7 +43,7 @@ export default function AnalyticsPage() {
   const [chatStats, setChatStats] = useState<ChatStats | null>(null);
   const [loading, setLoading] = useState(true);
 
-  const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://backend-ai-cs-production.up.railway.app';
+  const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://api.optifya.com';
 
   useEffect(() => {
     fetchCompanies();
