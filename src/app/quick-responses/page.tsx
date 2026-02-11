@@ -65,9 +65,16 @@ export default function QuickResponsesPage() {
   const [editingItem, setEditingItem] = useState<QuickResponse | null>(null);
 
   // Form state
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<{
+    company_id: string;
+    trigger_type: 'exact' | 'contains' | 'regex';
+    triggers: string;
+    responses: string;
+    category: string;
+    priority: number;
+  }>({
     company_id: '',
-    trigger_type: 'exact' as const,
+    trigger_type: 'exact',
     triggers: '',
     responses: '',
     category: 'greeting',
