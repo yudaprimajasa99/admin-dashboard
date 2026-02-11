@@ -9,10 +9,11 @@ import { LogOut } from 'lucide-react';
 const menuItems = [
   { href: '/', label: 'Dashboard', icon: '📊' },
   { href: '/companies', label: 'Companies', icon: '🏢' },
-  { href: '/personas', label: 'Personas', icon: '🤖' },
-  { href: '/items', label: 'Items/Services', icon: '📦' },
+  { href: '/personas', label: 'AI Persona', icon: '🤖' },  // Main customization
+  { href: '/items', label: 'Products/Services', icon: '📦' },
   { href: '/knowledge', label: 'Knowledge Base', icon: '📚' },
   { href: '/faqs', label: 'FAQs', icon: '❓' },
+  { href: '/quick-responses', label: 'Quick Replies', icon: '⚡' },  // No AI
   { href: '/chats', label: 'Chat History', icon: '💬' },
   { href: '/analytics', label: 'Analytics', icon: '📈' },
 ];

@@ -621,7 +621,7 @@ Emoji: ${personality.emoji_usage}`;
                 <div>
                   <Label className="text-lg">System Prompt</Label>
                   <p className="text-sm text-gray-500">
-                    Instruksi utama untuk AI. Personality settings akan digabung otomatis.
+                    Personality & gaya komunikasi AI. Tulis natural, biarkan AI berkreasi.
                   </p>
                 </div>
                 <Badge variant="outline">
@@ -632,31 +632,31 @@ Emoji: ${personality.emoji_usage}`;
               <Textarea
                 value={form.system_prompt}
                 onChange={(e) => setForm({ ...form, system_prompt: e.target.value })}
-                placeholder={`Contoh:
-Kamu adalah Asisten Roofel, Customer Service AI untuk Roofel - Digital Agency.
+                placeholder={`Contoh (tulis natural seperti menjelaskan ke orang):
 
-TENTANG ROOFEL:
-- Berdiri sejak 2020
-- Spesialisasi: Website, SEO, Digital Marketing
+Kamu adalah CS untuk Roofel, digital agency yang fokus di website dan SEO.
 
-LAYANAN:
-1. Website Development
-2. SEO Optimization
-3. Google Ads
+Gaya komunikasi:
+- Santai tapi profesional, seperti chat WA
+- Boleh pakai emoji secukupnya
+- Kalau user tanya teknis, jelaskan simple dulu, detail kalau diminta
 
-TUGAS:
-- Menjawab pertanyaan layanan & harga
-- Memberikan rekomendasi
-- Mengarahkan ke WhatsApp untuk order`}
+Yang perlu kamu tau:
+- Untuk topik kompleks (SEO, strategi), tanya dulu kebutuhannya
+- Untuk topik simpel (harga, stok), langsung jawab
+- Kalau ragu, arahkan ke WA untuk diskusi lebih lanjut
+
+Note: Data produk & harga akan diberikan otomatis dari database, jangan karang.`}
                 className="min-h-[500px] font-mono text-sm"
               />
 
               <div className="mt-4 p-3 bg-blue-50 rounded-lg text-sm text-blue-700">
-                <strong>💡 Tips:</strong>
+                <strong>💡 Konsep Baru:</strong>
                 <ul className="list-disc list-inside mt-1 space-y-1">
-                  <li>Personality settings (sapaan, tone, emoji) akan otomatis ditambahkan oleh system</li>
-                  <li>Fokus pada: identitas, layanan, dan batasan AI</li>
-                  <li>Gunakan format bullet points agar lebih jelas</li>
+                  <li><strong>Tulis natural</strong> - AI sudah pintar, cukup kasih context</li>
+                  <li><strong>Jangan template</strong> - Biarkan AI pilih kata-katanya sendiri</li>
+                  <li><strong>Focus personality</strong> - Gaya, tone, cara bicara</li>
+                  <li>Data produk & harga otomatis dari database (RAG)</li>
                 </ul>
               </div>
             </Card>
